@@ -1,52 +1,36 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import {v4 as uuid} from 'uuid';
+import Images from "./Images";
 const url = 'https://api.giphy.com/v1/stickers/random?api_key=FFEChJmynaVGREDvL6ZFV3S8M16JPcO9&tag=&rating=g';
 
-const SetLevel = (level) => {
-    let NUMBER_OF_PICTURES = 0;
-    switch (level) {
-        case 'easy':
-            NUMBER_OF_PICTURES = 10;
-            break;
-        case 'medium':
-            NUMBER_OF_PICTURES = 20;
-            break;
-        case 'hard':
-            NUMBER_OF_PICTURES = 30;
-            break;
-        case 'amater':
-            NUMBER_OF_PICTURES = 40;
-            break;
-        default:
-            NUMBER_OF_PICTURES = 10;    
+
+  
+async function get_NewImageObject (API, database, callback, max_tries = 0) {
+    //this func extracts a unique image object not present in the reference database argument; 
+    if(max_tries > 10) {throw new Error(`Unable to find a unique image after ${max_tries} tries...`)}
+    try{
+        const response = await fetch(API);
+        if(!response.ok){throw new Error(`exitted with status code ${response.status}`)}
+        const data = await response.json();
+        if(data.data.images.original.url && !database.includes(data.data.images.original.url)){
+            //if the a unique image is found it is assigned a unique id and returned;
+            callback(data.data.images.original.url);
+            return {...data.data.images.original, id: uuid()};
+        }
     }
-    return NUMBER_OF_PICTURES;
-  } //sets the level of difficulty;
-  
-  
-async function getUrl (url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.data.images.original.url?data.data.images.original:getUrl(url);
+    catch (error) {
+        console.log(`Error: ${error.message}`)
+    }
+
+    return get_NewImageObject(API, database, max_tries + 1);
 } 
 
-export default function  Main () {
-    const [IMAGES, set_IMAGES] = useState([
-        {url:'./assets/game_pictures/download.jfif', id: uuid()}, 
-        {url:'./assets/game_pictures/OIP (1).jfif', id:uuid()},
-        {url:'./assets/game_pictures/OIP (12).jfif', id: uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-    ]);
 
+export default function  Main () {
+    const [IMAGES, set_IMAGES] = useState([]);
+    const [IMAGES_URLS, set_IMAGES_URLS] = useState([]); 
+    const [LEVEL, set_LEVEL] = useState('easy');
     const [SCORES, set_SCORE] = useState(0);
     const [BEST_SCORES, set_BEST_SCORE] = useState(0);
     const [CLICKED, set_CLICKED] = useState([]);
@@ -60,7 +44,54 @@ export default function  Main () {
     function reset_score () {set_SCORE(0)}
     
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        async function fetchData( ) {
+            const images = [];
+            switch (LEVEL) {
+                case 'easy':
+                    for(let i=0; i<4; i++){
+                        const newImage = await get_NewImageObject(url, IMAGES_URLS,set_IMAGES_URLS);
+                        images.push(newImage);
+                    };
+                    set_IMAGES(images);
+                    break;
+
+                case 'medium':
+                    for(let i=0; i<8; i++){
+                        const newImage = await get_NewImageObject(url, IMAGES_URLS, set_IMAGES_URLS);
+                        images.push(newImage);
+                    };
+                    set_IMAGES(images);
+                    break;
+
+                case 'hard':
+                    for(let i=0; i<12; i++){
+                        const newImage = await get_NewImageObject(url, IMAGES_URLS, set_IMAGES_URLS);
+                        images.push(newImage);
+                    };
+                    set_IMAGES(images);
+                    break;
+
+                case 'amatuer':
+                    for(let i=0; i<16; i++){
+                        const newImage = await get_NewImageObject(url, IMAGES_URLS, set_IMAGES_URLS);
+                        images.push(newImage);
+                    };
+                    set_IMAGES(images);
+                    break;
+
+                default:
+                    for(let i=0; i<4; i++){
+                        const newImage = await get_NewImageObject(url, IMAGES_URLS, set_IMAGES_URLS);
+                        images.push(newImage);
+                    };
+                    set_IMAGES(images);
+                    break;    
+            }
+
+        }
+        fetchData();
+    }, [LEVEL, IMAGES_URLS]);
     
     function handleClick (referrence) {
         if(!CLICKED.includes(referrence)){
@@ -83,7 +114,7 @@ export default function  Main () {
                     <div role='navigation' className="bg-secondary p-2">
                         <form action="/" method="post">
                             <label htmlFor="game-level">LEVEL: </label>
-                            <select name="level" id="game-level">
+                            <select value={LEVEL} name="level" id="game-level" onChange={(event)=>{set_LEVEL(event.target.value);}}>
                                 <option value="easy">easy</option>
                                 <option value="medium">medium</option>
                                 <option value="hard">hard</option>
@@ -109,7 +140,7 @@ export default function  Main () {
 
     }
 
-
+    
     const Display = ({className}) => {
         return (
             <div className={`${className}`}>
@@ -136,7 +167,7 @@ export default function  Main () {
     return (
         <div className="bg-success">
             <ScoreBoard className='scores'/>
-            <Display className='display bg-secondary p4 d-flex flex-wrap align-content-center justify-content-center'/>
+            <Display className='display bg-secondary p4 d-flex flex-wrap align-content-start justify-content-center'/>
         </div>
     )
 
@@ -145,6 +176,7 @@ export default function  Main () {
 
     
 }
+
 //steps
 //game name (memory tester puzzle);
 //1: fetch 10/20/30/40 images based on level of difficulty set on game start;
