@@ -32,20 +32,7 @@ async function getUrl (url) {
 } 
 
 export default function  Main () {
-    const [IMAGES, set_IMAGES] = useState([
-        {url:'./assets/game_pictures/download.jfif', id: uuid()}, 
-        {url:'./assets/game_pictures/OIP (1).jfif', id:uuid()},
-        {url:'./assets/game_pictures/OIP (12).jfif', id: uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-        {url: './assets/game_pictures/download (1).jfif', id:uuid()},
-    ]);
+    const [IMAGES, set_IMAGES] = useState([]);
 
     const [SCORES, set_SCORE] = useState(0);
     const [BEST_SCORES, set_BEST_SCORE] = useState(0);
