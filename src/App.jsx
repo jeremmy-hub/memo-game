@@ -71,32 +71,32 @@ export default function Main() {
     const ScoreBoard = ({ className }) => {
         return (
             <div className={`container-fluid-md score-board ${className}`}>
-                <div className={`row bg-secondary navigation-panel`}>
-                    <div role='navigation' className="log col-6 d-flex flex-row flex-wrap justify-content-center align-content-center"> 
+                <div className={`row bg-secondary navigation-panel p-1`}>
+                    <div role='navigation' className="col-6 d-flex flex-row flex-wrap justify-content-center align-content-center"> 
                     <span className="h2 logo">memory-joker</span>
                     </div>
 
-                    <div className="col-4 d-flex flex-column">
-                        <div role='navigation' className="bg-secondary p-2">
-                            <form action="/" method="post">
-                                <label htmlFor="game-level">LEVEL: </label>
-                                <select value={LEVEL} name="level" id="game-level" onChange={(event) => { set_LEVEL(event.target.value); }}>
+                    <div className="col-6 d-flex flex-column scores">
+                        <div role='navigation' className="p-2 d-flex flex-row flex-wrap justify-content-around">
+                            <form action="/" method="post" className="flex-fill d-flex flex-row flex-wrap justify-content-evenly level-setter bg-success m-1 p-2">
+                                <label htmlFor="game-level" className="text-center">LEVEL : </label>
+                                <select value={LEVEL} name="level" id="game-level" onChange={(event) => { set_LEVEL(event.target.value); }} className="text-center level-selector">
                                     <option value="easy">easy</option>
-                                    <option value="medium">medium</option>
+                                    <option value="medium">medium</option> 
                                     <option value="hard">hard</option>
                                     <option value="amateur">amateur</option>
                                 </select>
                             </form>
                         </div>
 
-                        <div className="scores bg-secondary d-flex flex-wrap align-items-center justify-content-center p-2">
-                            <div role='navigation' className="bg-light text-center">
-                                <span className="m-1 p-1 text-info">Current Score:</span>
+                        <div className="scores-display d-flex flex-wrap align-items-center justify-content-center p-2">
+                            <div role='navigation' className="text-center flex-fill m-1">
+                                <span className="m-1 p-1 level-selector">Current Score:</span>
                                 <br />{SCORES}
                             </div>
 
-                            <div role='navigation' className="bg-light text-center">
-                                <span className="m-1 p-1 text-info">High Score:</span>
+                            <div role='navigation' className="text-center flex-fill m-1">
+                                <span className="m-1 p-1 level-selector">High Score:</span>
                                 <br />{BEST_SCORES}
                             </div>
                         </div>
@@ -112,7 +112,7 @@ export default function Main() {
             <div className={`${className}`}>
                 {IMAGES.map((image) => {
                     return (
-                        <div className="card m-1"
+                        <div className="card m-1 p-2 image-item"
                             style={{ width: "clamp(100px, 20vw, 200px)", height: 'clamp(100px, 20vw, 200px)', marginInline: '10px', position: 'relative' }}
                             key={image.id}
                             onClick={() => { handleClick(image.id) }}

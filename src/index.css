@@ -1,5 +1,11 @@
 :root{
-  --game-secondary-color: #2d3a3a;
+  --gun-metal: #2d3a3a;
+  --forest-green: #248232;
+  --pigment-green: #2ba84a;
+  --rich-black: #040f0f;
+  --burnt-orange: #be5918;
+  --smoky-black: #0f1102;
+  --brown: #953a13;
 }
 
 body {
@@ -33,5 +39,38 @@ code {
 }
 
 .navigation-panel{
-  background-image: var(--game-primary-color);
+  background-color: var(--rich-black) !important;
+  color: wheat;
+}
+
+.logo{
+  letter-spacing: .5rem;
+  text-transform: uppercase;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 0px 0px 20px var(--burnt-orange);
+}
+
+.scores, .scores > div:not(.level-sette):not(.scores-display){
+  background-color: var(--rich-black) !important;
+}
+
+.image-item{
+  outline: 3px solid var(--rich-black);
+  box-shadow: 0px 0px 18px 20px var(--rich-black) inset;
+}
+
+.level-selector{
+  color: var(--burnt-orange) !important;
+}
+
+.image-item:hover{
+  box-shadow: 0px 0px 18px 20px var(--burnt-orange) inset, 0px 0px 18px 22px rgb(133, 35, 84);
+  cursor: pointer;
+}
+
+.scores-display{
+  outline: 3px solid var(--pigment-green) !important;
+  margin: 2px;
+  color: var(--burnt-orange);
+  font-family: fantasy;
 }
