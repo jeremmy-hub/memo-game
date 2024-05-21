@@ -71,8 +71,9 @@ export default function Main() {
     const ScoreBoard = ({ className }) => {
         return (
             <div className={`container-fluid-md score-board ${className}`}>
-                <div className={`row bg-info`}>
-                    <div role='navigation' className="log col-6"> Game
+                <div className={`row bg-secondary navigation-panel`}>
+                    <div role='navigation' className="log col-6 d-flex flex-row flex-wrap justify-content-center align-content-center"> 
+                    <span className="h2 logo">memory-joker</span>
                     </div>
 
                     <div className="col-4 d-flex flex-column">
@@ -88,7 +89,7 @@ export default function Main() {
                             </form>
                         </div>
 
-                        <div className="scores bg-secondary d-flex align-items-center justify-content-center p-2">
+                        <div className="scores bg-secondary d-flex flex-wrap align-items-center justify-content-center p-2">
                             <div role='navigation' className="bg-light text-center">
                                 <span className="m-1 p-1 text-info">Current Score:</span>
                                 <br />{SCORES}
@@ -100,6 +101,7 @@ export default function Main() {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         );
