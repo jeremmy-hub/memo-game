@@ -3,33 +3,7 @@ import { useState, useEffect } from "react";
 import {v4 as uuid} from 'uuid';
 const url = 'https://api.giphy.com/v1/stickers/random?api_key=FFEChJmynaVGREDvL6ZFV3S8M16JPcO9&tag=&rating=g';
 
-const SetLevel = (level) => {
-    let NUMBER_OF_PICTURES = 0;
-    switch (level) {
-        case 'easy':
-            NUMBER_OF_PICTURES = 10;
-            break;
-        case 'medium':
-            NUMBER_OF_PICTURES = 20;
-            break;
-        case 'hard':
-            NUMBER_OF_PICTURES = 30;
-            break;
-        case 'amatuer':
-            NUMBER_OF_PICTURES = 40;
-            break;
-        default:
-            NUMBER_OF_PICTURES = 10;    
-    }
-    return NUMBER_OF_PICTURES;
-  } //sets the level of difficulty;
-  
-  
-async function getUrl (url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.data.images.original.url?data.data.images.original:getUrl(url);
-} 
+
 
 export default function  Main () {
     const [IMAGES, set_IMAGES] = useState([]);
