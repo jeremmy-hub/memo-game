@@ -1,13 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Main from './App.jsx';
 import reportWebVitals from './reportWebVitals';
+
+const API_KEY = 'FFEChJmynaVGREDvL6ZFV3S8M16JPcO9'
+const url = 'https://api.giphy.com/v1/stickers/random?api_key=FFEChJmynaVGREDvL6ZFV3S8M16JPcO9&tag=&rating=g';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Main images_source={url} />
   </React.StrictMode>
 );
 

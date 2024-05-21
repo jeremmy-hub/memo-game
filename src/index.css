@@ -7,7 +7,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root{
+  height: 100vh;
+  display: grid;
+  align-content: stretch;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.display{
+  min-height: 70vh;
+}
+
+.score-board{
+  position: sticky;
+  top:0;
+  z-index: 10;
 }
