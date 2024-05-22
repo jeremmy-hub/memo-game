@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuid } from 'uuid';
-const url = 'https://api.giphy.com/v1/stickers/random?api_key=FFEChJmynaVGREDvL6ZFV3S8M16JPcO9&tag=&rating=g';
 
 async function get_NewImageObject(API, database, max_tries = 0) {
     // This function extracts a unique image object not present in the reference database argument
@@ -23,7 +22,7 @@ async function get_NewImageObject(API, database, max_tries = 0) {
     return get_NewImageObject(API, database, max_tries + 1);
 }
 
-export default function Main() {
+export default function Main({url}) {
     const [IMAGES, set_IMAGES] = useState([]);
     const IMAGES_URLS = useRef([]); // Use ref to track image URLs without causing re-renders
     const [LEVEL, set_LEVEL] = useState('easy');
