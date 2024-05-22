@@ -80,7 +80,11 @@ export default function Main() {
                         <div role='navigation' className="p-2 d-flex flex-row flex-wrap justify-content-around">
                             <form action="/" method="post" className="flex-fill d-flex flex-row flex-wrap justify-content-evenly level-setter bg-success m-1 p-2">
                                 <label htmlFor="game-level" className="text-center">LEVEL : </label>
-                                <select value={LEVEL} name="level" id="game-level" onChange={(event) => { set_LEVEL(event.target.value); }} className="text-center level-selector">
+                                <select value={LEVEL} name="level" id="game-level" onChange={(event) => { 
+                                    set_LEVEL(event.target.value); 
+                                    set_SCORE(0);
+                                    set_BEST_SCORE(0);
+                                        }} className="text-center level-selector">
                                     <option value="easy">easy</option>
                                     <option value="medium">medium</option> 
                                     <option value="hard">hard</option>
